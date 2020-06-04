@@ -1,0 +1,1 @@
+docker build --build-arg ssh_pub_key1="$(cat AMsshh.pub)" --build-arg ssh_pub_key2="$(cat zaphod_lws.pub)" .
