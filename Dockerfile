@@ -3,17 +3,17 @@ FROM rocker/verse
 
 # Download and install a dependency
 
-RUN service ssh start
+RUN install2.r tidytext textstem gridExtra sparklyr
 
 RUN apt-get update && apt-get install gnupg -y
 RUN wget -q -O- 'https://ceph.com/git/?p=ceph.git;a=blob_plain;f=keys/release.asc' | sudo apt-key add -
 RUN echo deb http://eu.ceph.com/debian-dumpling/ $(lsb_release -sc) main | tee /etc/apt/sources.list.d/ceph.list
 RUN apt-get install ceph -y
 
-RUN /usr/local/bin/Rscript -e 'install.packages("tidytext")'
-RUN /usr/local/bin/Rscript -e 'install.packages("textstem")'
-RUN /usr/local/bin/Rscript -e 'install.packages("gridExtra")'
-RUN /usr/local/bin/Rscript -e 'install.packages("sparklyr")'
+#RUN /usr/local/bin/Rscript -e 'install.packages("tidytext")'
+#RUN /usr/local/bin/Rscript -e 'install.packages("textstem")'
+#RUN /usr/local/bin/Rscript -e 'install.packages("gridExtra")'
+#RUN /usr/local/bin/Rscript -e 'install.packages("sparklyr")'
 
 ARG ssh_pub_key1
 ARG ssh_pub_key2
@@ -28,3 +28,24 @@ RUN echo "$ssh_pub_key1" >> /home/rstudio/.ssh/authorized_keys && \
     echo "$ssh_pub_key2" >> /home/rstudio/.ssh/authorized_keys && \
     chmod 600 /home/rstudio/.ssh/authorized_keys && \
     chown rstudio:rstudio /home/rstudio/.ssh/authorized_keys
+
+RUN mkdir -p /etc/services.d/sshd && \
+    echo '#!/usr/bin/execlineb -P' > /etc/services.d/sshd/run && \
+    echo '/usr/sbin/sshd -D' >> /etc/services.d/sshd/run && \
+    ssh-keygen -A && \
+    mkdir -p /run/sshd
+
+
+# RUN mkdir -p /etc/services.d/ssh && \
+#     echo '#!/usr/bin/with-contenv bash' > /etc/services.d/ssh/run && \
+#     echo '/etc/init.d/ssh start' >> /etc/services.d/ssh/run
+
+
+# CMD /etc/init.d/ssh start
+
+# ENTRYPOINT /etc/init.d/ssh start && bash
+
+# RUN echo '/etc/init.d/ssh start' >> /etc/services.d/rstudio/run
+
+
+
