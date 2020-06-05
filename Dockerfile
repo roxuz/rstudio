@@ -1,5 +1,5 @@
 # Use an existing docker image as a base
-FROM rocker/verse
+FROM rocker/verse:3.6.3
 
 # Download and install a dependency
 
