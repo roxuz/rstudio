@@ -35,9 +35,9 @@ RUN mkdir -p /etc/services.d/sshd && \
     ssh-keygen -A && \
     mkdir -p /run/sshd
 
-RUN install2.r RJDBC
 COPY ojdbc6.jar /home/rstudio/
-chown rstudio:rstudio /home/rstudio/ojdbc6.jar
+RUN install2.r RJDBC && \
+    chown rstudio:rstudio /home/rstudio/ojdbc6.jar
 
 # RUN mkdir -p /etc/services.d/ssh && \
 #     echo '#!/usr/bin/with-contenv bash' > /etc/services.d/ssh/run && \
