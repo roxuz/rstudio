@@ -1,3 +1,4 @@
 docker build -t roxuzopi/verse_plus:dev --build-arg ssh_pub_key1="$(cat AMsshh2.rstudio.pub)" --build-arg ssh_pub_key2="$(cat zaphod_lws.pub)" .
 docker login --username=roxuzopi
 docker push roxuzopi/verse_plus:dev
+docker run -e PASSWORD=1234 -p 8787:8787 -p 2222:22 roxuzopi/verse_plus:dev
