@@ -35,6 +35,7 @@ RUN mkdir -p /etc/services.d/sshd && \
     ssh-keygen -A && \
     mkdir -p /run/sshd
 
+RUN install2.r RJDBC
 
 # RUN mkdir -p /etc/services.d/ssh && \
 #     echo '#!/usr/bin/with-contenv bash' > /etc/services.d/ssh/run && \
