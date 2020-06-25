@@ -38,6 +38,7 @@ RUN mkdir -p /etc/services.d/sshd && \
 COPY ojdbc6.jar /home/rstudio/
 RUN install2.r RJDBC && \
     chown rstudio:rstudio /home/rstudio/ojdbc6.jar
+RUN apt-get install netcat telnet -y    
 
 # RUN mkdir -p /etc/services.d/ssh && \
 #     echo '#!/usr/bin/with-contenv bash' > /etc/services.d/ssh/run && \
