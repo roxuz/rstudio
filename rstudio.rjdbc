@@ -1,0 +1,17 @@
+## essential libraries
+library(DBI)
+library(rJava)
+library(RJDBC)
+
+## memory parameter for java
+options(java.parameters = "-Xmx10048m")
+
+## setting up a jdbc driver
+jdbcDriver <-  RJDBC::JDBC(driverClass="oracle.jdbc.OracleDriver", 
+                   classPath="/home/rstudio/ojdbc6.jar") # path to ojdbc6 driver
+
+## connecting to oracle
+jdbcConnection <- dbConnect(jdbcDriver,
+                            "jdbc:oracle:thin:@//10.20.21.134:1521/hurtzsun", 
+                            "staging", 
+                            "pass")
